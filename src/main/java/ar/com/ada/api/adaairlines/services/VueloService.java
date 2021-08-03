@@ -1,13 +1,14 @@
 package ar.com.ada.api.adaairlines.services;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.com.ada.api.adaairlines.entities.Aeropuerto;
 import ar.com.ada.api.adaairlines.entities.Vuelo;
+import ar.com.ada.api.adaairlines.entities.Vuelo.EstadoVueloEnum;
 import ar.com.ada.api.adaairlines.repos.VueloRepository;
 
 @Service
@@ -83,6 +84,18 @@ public class VueloService { // lo más importante es esto, para la funcionalidad
     public enum ValidacionVueloDataEnum {
         OK, ERROR_PRECIO, ERROR_AEROPUERTO_ORIGEN, ERROR_AEROPUERTO_DESTINO, ERROR_FECHA, ERROR_MONEDA,
         ERROR_CAPACIDAD_MINIMA, ERROR_CAPACIDAD_MAXIMA, ERROR_AEROPUERTOS_IGUALES, ERROR_GENERAL,
+    }
+
+    public Vuelo buscarPorId(Integer id) {
+        return repo.findByVueloId(id);
+    }
+
+    public List<Vuelo> traerVuelosAbiertos() {
+        return repo.findByEstadoVueloId(EstadoVueloEnum.ABIERTO.getValue());
+    }
+
+    public void actualizar(Vuelo vuelo) {
+        repo.save(vuelo);
     }
 
 }
