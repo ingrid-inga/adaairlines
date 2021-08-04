@@ -22,6 +22,7 @@ public class VueloService { // lo más importante es esto, para la funcionalidad
     private AeropuertoService aeropService;
 
     public void crear(Vuelo vuelo) {
+        vuelo.setEstadoVueloId(EstadoVueloEnum.GENERADO);
         repo.save(vuelo);
     }
 
@@ -43,7 +44,7 @@ public class VueloService { // lo más importante es esto, para la funcionalidad
         vuelo.setPrecio(precio);
         vuelo.setCodigoMoneda(codigoMoneda);
 
-        // crear(vuelo); // llama al metodo de arriba. creo un vuelo pre-fabricado
+         //crear(vuelo); // llama al metodo de arriba. creo un vuelo pre-fabricado
         repo.save(vuelo); // lo guarda directo en la base de datos 20:21 july 26 . creo
         // un vuelo
 
@@ -66,7 +67,7 @@ public class VueloService { // lo más importante es esto, para la funcionalidad
         if (vuelo.getPrecio() == null) {
             return false;
         }
-        if (vuelo.getPrecio().doubleValue() < 0)
+        if (vuelo.getPrecio().doubleValue() > 0)
             return true;
 
         return false;

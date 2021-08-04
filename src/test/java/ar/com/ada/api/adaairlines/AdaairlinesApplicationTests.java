@@ -10,7 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 //import org.springframework.test.context.TestExecutionListeners;
 
 import ar.com.ada.api.adaairlines.entities.*;
+import ar.com.ada.api.adaairlines.entities.Vuelo.EstadoVueloEnum;
 import ar.com.ada.api.adaairlines.services.*;
+import ar.com.ada.api.adaairlines.services.VueloService.ValidacionVueloDataEnum;
 
 @SpringBootTest
 class AdaairlinesApplicationTests {
@@ -24,7 +26,7 @@ class AdaairlinesApplicationTests {
 	@Test
 	void vueloTestPrecioNegativo() {
 		Vuelo vueloConPrecioNegativo = new Vuelo();
-		vueloConPrecioNegativo.setPrecio(new BigDecimal(100));
+		vueloConPrecioNegativo.setPrecio(new BigDecimal(-100));
 
 		// Assert: afirmar
 		// afirmar quie sea verdadero: assertFalse
@@ -35,7 +37,7 @@ class AdaairlinesApplicationTests {
 	@Test
 	void vueloTestPrecioOk() {
 		Vuelo vueloConPrecioOK = new Vuelo();
-		vueloConPrecioOK.setPrecio(new BigDecimal(-100));
+		vueloConPrecioOK.setPrecio(new BigDecimal(100));
 
 		// Assert: afirmar
 		// afirmar quie sea verdadero: assertTrue
@@ -137,6 +139,17 @@ class AdaairlinesApplicationTests {
 	@Test
 	void aeropuertoTestBuscadorIATA() {
 
+	}
+
+	@Test
+	void vueloValidarVueloMismoDestionoUsandoGeneral() {
+		Vuelo vuelo = new Vuelo();
+		vuelo.setPrecio(new BigDecimal(1000));
+		vuelo.setEstadoVueloId(EstadoVueloEnum.GENERADO);
+		vuelo.setAeropuertoOrigen(116);
+		vuelo.setAeropuertoDestino(116);
+
+		assertEquals( ValidacionVueloDataEnum.ERROR_AEROPUERTOS_IGUALES, vueloService.validar(vuelo));
 	}
 
 }

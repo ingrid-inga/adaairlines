@@ -23,7 +23,7 @@ public class AeropuertoController { // 21:23 el post solo crea la respuesta, el 
 
         respuesta.isOk = true;
         respuesta.message = "Se creo correctamente";
-        respuesta.id = aeropuerto.getAeropuertoId();
+        //respuesta.id = aeropuerto.getAeropuertoId();
 
         return ResponseEntity.ok(respuesta);
 
