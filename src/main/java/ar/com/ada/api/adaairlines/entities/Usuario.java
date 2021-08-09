@@ -6,6 +6,8 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.NaturalId;
 
+import net.bytebuddy.asm.Advice.Return;
+
 @Entity
 @Table(name = "usuario")
 public class Usuario {
