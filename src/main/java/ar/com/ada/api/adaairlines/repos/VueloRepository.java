@@ -10,7 +10,7 @@ import ar.com.ada.api.adaairlines.entities.Vuelo;
 @Repository
 public interface VueloRepository extends JpaRepository<Vuelo, Integer> {
 
-    Vuelo findByVueloId(Integer id);
+    Vuelo findByVueloId(Object vueloId);
 
     List<Vuelo> findByEstadoVueloId(Integer value);
 

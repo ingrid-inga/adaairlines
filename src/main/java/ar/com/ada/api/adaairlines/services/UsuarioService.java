@@ -52,7 +52,7 @@ public class UsuarioService {
       throw new BadCredentialsException("Usuario o contraseña invalida");
     }
 
-    return u;
+    return u; 
   }
 
   public Usuario crearUsuario(TipoUsuarioEnum tipoUsuario, String nombre, int pais, Date fechaNacimiento,

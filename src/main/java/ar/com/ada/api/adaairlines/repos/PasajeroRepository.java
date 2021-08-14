@@ -8,4 +8,6 @@ import ar.com.ada.api.adaairlines.entities.Pasajero;
 @Repository
 public interface PasajeroRepository extends JpaRepository<Pasajero, Integer> {
 
+    Pasajero findByPasajeroId(Integer id);
+
 }

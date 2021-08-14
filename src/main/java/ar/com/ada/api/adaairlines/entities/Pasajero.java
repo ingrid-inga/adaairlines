@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "pasajero")
 public class Pasajero extends Persona {
+
     @Id
     @Column(name = "pasajero_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,31 +34,6 @@ public class Pasajero extends Persona {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
         usuario.setPasajero(this);
-    }
-
-    public enum EstadoReservaEnum {
-        INACTIVO(0), ACTIVO(1);
-
-        private final Integer value;
-
-        private EstadoReservaEnum(Integer value) {
-            this.value = value;
-        }
-
-        public Integer getValue() {
-            return value;
-        }
-
-        public static EstadoReservaEnum parse(Integer id) {
-            EstadoReservaEnum status = null; // Default
-            for (EstadoReservaEnum item : EstadoReservaEnum.values()) {
-                if (item.getValue().equals(id)) {
-                    status = item;
-                    break;
-                }
-            }
-            return status;
-        }
     }
 
     public Integer getPasajeroId() {

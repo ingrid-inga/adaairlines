@@ -87,8 +87,8 @@ public class VueloService { // lo más importante es esto, para la funcionalidad
         ERROR_CAPACIDAD_MINIMA, ERROR_CAPACIDAD_MAXIMA, ERROR_AEROPUERTOS_IGUALES, ERROR_GENERAL,
     }
 
-    public Vuelo buscarPorId(Integer id) {
-        return repo.findByVueloId(id);
+    public Vuelo buscarPorId(Object vueloId) {
+        return repo.findByVueloId(vueloId);
     }
 
     public List<Vuelo> traerVuelosAbiertos() {
