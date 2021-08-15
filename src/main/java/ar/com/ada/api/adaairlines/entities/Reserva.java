@@ -134,4 +134,7 @@ public class Reserva {
         pasaje.setReserva(this);
     }
 
+    public void asociarPasaje(Pasaje pasaje2) {
+    }
+
 }
