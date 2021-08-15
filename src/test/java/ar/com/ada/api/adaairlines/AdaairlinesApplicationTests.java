@@ -13,6 +13,7 @@ import ar.com.ada.api.adaairlines.entities.*;
 import ar.com.ada.api.adaairlines.entities.Vuelo.EstadoVueloEnum;
 import ar.com.ada.api.adaairlines.security.Crypto;
 import ar.com.ada.api.adaairlines.services.*;
+import ar.com.ada.api.adaairlines.services.AeropuertoService.ValidacionAeropuertoDataEnum;
 import ar.com.ada.api.adaairlines.services.VueloService.ValidacionVueloDataEnum;
 
 @SpringBootTest
@@ -175,6 +176,26 @@ class AdaairlinesApplicationTests {
 
 		assertFalse(!usuario.getPassword().equals(Crypto.encrypt("AbcdE23", usuario.getUsername().toLowerCase())));
 
+	}
+
+	@Test
+	void testearAeropuertoId() {
+		Aeropuerto aeropuerto = new Aeropuerto();
+		aeropuerto.setAeropuertoId(117);
+		aeropuerto.setCodigoIATA("MDZ");
+		aeropuerto.setNombre("Mendoza");
+
+		assertEquals(ValidacionAeropuertoDataEnum.ERROR_AEROPUERTO_YA_EXISTE, aeropuertoService.validar(aeropuerto));
+	}
+
+	@Test
+	void testearAeropuertoCodigoIATA() {
+		Aeropuerto aeropuerto = new Aeropuerto();
+		aeropuerto.setAeropuertoId(17);
+		aeropuerto.setCodigoIATA("  M");
+		aeropuerto.setNombre("Mendoza");
+
+		assertEquals(ValidacionAeropuertoDataEnum.ERROR_CODIGO_IATA, aeropuertoService.validar(aeropuerto));
 	}
 
 }

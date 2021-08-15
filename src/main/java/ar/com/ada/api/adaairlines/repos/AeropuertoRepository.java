@@ -10,8 +10,10 @@ public interface AeropuertoRepository extends JpaRepository<Aeropuerto, Integer>
 
     Aeropuerto findByCodigoIATA(String codigoIATA);
 
+    Aeropuerto findByAeropuertoId(Integer aeropuertoId);
+
 }
 
-//20:07 mon26 july
+// 20:07 mon26 july
 
-//Mier28 Los test siempre son void
+// Mier28 Los test siempre son void
