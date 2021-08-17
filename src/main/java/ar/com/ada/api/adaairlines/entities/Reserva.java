@@ -19,26 +19,21 @@ public class Reserva {
 
     @ManyToOne
     @JoinColumn(name = "pasajero_id", referencedColumnName = "pasajero_id")
-    // @OneToOne(mappedBy = "reserva", cascade = CascadeType.ALL)
     private Pasajero pasajero;
 
+    @OneToOne(mappedBy = "reserva", cascade = CascadeType.ALL, fetch = FetchType.EAGER) // fetch para que no traiga //
+                                                                                        // todos los elemen //
+                                                                                        // asociados. 21:35
+    private Pasaje pasaje;// se usa mapped xq es el origen
+    // nombre del atributo que hace referencia a la tabla ****no es necesario
     @Column(name = "estado_reserva_id")
     private Integer estadoReservaId;
 
-    // private EstadoReservaEnum estadoReserva;
-    // @OneToOne(mappedBy = "reserva", cascade = CascadeType.ALL)
     @Column(name = "fecha_emision")
     private Date fechaEmision;
 
     @Column(name = "fecha_vencimiento")
     private Date fechaVencimiento;
-
-    @OneToOne(mappedBy = "reserva", cascade = CascadeType.ALL, fetch = FetchType.EAGER) // fetch para que no traiga
-                                                                                        // todos los elementos
-                                                                                        // asociados. 21:35
-    private Pasaje pasaje;// se usa mapped xq es el origen
-    // nombre del atributo que hace referencia a la tabla ****no es necesario
-    // agregarlo en el sql?
 
     // private EstadoReservaEnum estadoReserva;
 
@@ -124,7 +119,6 @@ public class Reserva {
     // }
 
     public Pasaje getPasaje() {
-
         return pasaje;
     }
 

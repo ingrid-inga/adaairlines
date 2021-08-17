@@ -4,11 +4,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ar.com.ada.api.adaairlines.entities.*;
 import ar.com.ada.api.adaairlines.entities.Reserva.EstadoReservaEnum;
 import ar.com.ada.api.adaairlines.repos.ReservaRepository;
 
+@Service
 public class ReservaService {
 
     @Autowired
@@ -20,7 +22,7 @@ public class ReservaService {
     @Autowired
     PasajeroService pasajeroService;
 
-    public Integer generarReserva(Object vueloId, Integer pasajeroId) {
+    public Integer generarReserva(Integer vueloId, Integer pasajeroId) {
 
         Reserva reserva = new Reserva();
 

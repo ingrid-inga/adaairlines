@@ -9,6 +9,7 @@ import ar.com.ada.api.adaairlines.models.request.InfoPasajeNuevo;
 import ar.com.ada.api.adaairlines.models.response.GenericResponse;
 import ar.com.ada.api.adaairlines.services.PasajeService;
 
+@RestController
 public class PasajeController {
 
     @Autowired

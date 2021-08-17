@@ -3,12 +3,14 @@ package ar.com.ada.api.adaairlines.services;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ar.com.ada.api.adaairlines.entities.Pasaje;
 import ar.com.ada.api.adaairlines.entities.Reserva;
 import ar.com.ada.api.adaairlines.entities.Reserva.EstadoReservaEnum;
 import ar.com.ada.api.adaairlines.repos.PasajeRepository;
 
+@Service
 public class PasajeService {
 
     @Autowired

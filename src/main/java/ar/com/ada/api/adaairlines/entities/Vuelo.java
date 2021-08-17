@@ -22,16 +22,9 @@ public class Vuelo {
 
     private Integer capacidad;
 
-    // @ManyToOne
-    // @JoinColumn(name = "aeropuerto_origen", referencedColumnName =
-    // "aeropuerto_origen") //21:57
     @Column(name = "aeropuerto_origen")
     private Integer aeropuertoOrigen; // cuando ponemos un atributo que es un objeto no va el column. (un aeropuerto
                                       // para varios vuelos)
-    // @OneToOne(mappedBy = "vuelo", cascade = CascadeType.ALL)
-    // @ManyToOne
-    // @JoinColumn(name = "aeropuerto_destino", referencedColumnName =
-    // "aeropuerto_destino") //21:57
     @Column(name = "aeropuerto_destino")
     private Integer aeropuertoDestino; // 21:59*Integer
 

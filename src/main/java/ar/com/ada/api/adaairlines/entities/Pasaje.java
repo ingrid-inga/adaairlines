@@ -3,9 +3,11 @@ package ar.com.ada.api.adaairlines.entities;
 import java.util.*;
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "pasaje")
 public class Pasaje {
+
     @Id
     @Column(name = "pasaje_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +22,6 @@ public class Pasaje {
 
     @Column(name = "info_pago") // 21:15 aquí es Json
     private String infoPago;
-
-    // @OneToOne "Relación"
-    // @JoinColumn(name = "reserva_id", referencedColumnName = "reserva_id")
-    // private Reserva reserva;
 
     public Integer getPasajeId() {
         return pasajeId;
@@ -61,18 +59,3 @@ public class Pasaje {
     // this.reserva.add(reserva);
     // reserva.setPasaje(this);
 }
-
-// public Integer obtenerEntityId() {
-// TODO, segun el tipo de usuario, devolver el docenteId o estudianteId o nada!
-
-// switch (this.getTipoUsuarioId()) {
-// case ESTUDIANTE:
-// return this.getEstudiante().getEstudianteId();
-// case DOCENTE:
-// return this.getDocente().getDocenteId();
-
-// default:
-// break;
-// }
-// return null;
-// }

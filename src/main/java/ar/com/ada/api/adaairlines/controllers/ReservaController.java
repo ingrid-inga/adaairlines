@@ -11,6 +11,7 @@ import ar.com.ada.api.adaairlines.models.request.InfoReservaNueva;
 import ar.com.ada.api.adaairlines.models.response.GenericResponse;
 import ar.com.ada.api.adaairlines.services.*;
 
+@RestController
 public class ReservaController {
     @Autowired
     ReservaService service;
