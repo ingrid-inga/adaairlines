@@ -44,7 +44,7 @@ public class VueloService { // lo más importante es esto, para la funcionalidad
         vuelo.setPrecio(precio);
         vuelo.setCodigoMoneda(codigoMoneda);
 
-         //crear(vuelo); // llama al metodo de arriba. creo un vuelo pre-fabricado
+        // crear(vuelo); // llama al metodo de arriba. creo un vuelo pre-fabricado
         repo.save(vuelo); // lo guarda directo en la base de datos 20:21 july 26 . creo
         // un vuelo
 
@@ -97,6 +97,13 @@ public class VueloService { // lo más importante es esto, para la funcionalidad
 
     public void actualizar(Vuelo vuelo) {
         repo.save(vuelo);
+    }
+
+    public boolean validarVueloExiste(Integer id) {
+        if (buscarPorId(id) != null) {
+            return true;
+        } else
+            return false;
     }
 
 }
