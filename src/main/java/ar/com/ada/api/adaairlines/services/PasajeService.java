@@ -26,10 +26,10 @@ public class PasajeService {
 
         Pasaje pasaje = new Pasaje();
         pasaje.setFechaEmision(new Date());
-
+        pasaje.setInfoPago("5");
         Reserva reserva = resService.buscarPorId(reservaId);
         reserva.setEstadoReservaId(EstadoReservaEnum.EMITIDA);
-        reserva.asociarPasaje(pasaje);
+        reserva.setPasaje(pasaje);
         Integer nuevaCapacidad = reserva.getVuelo().getCapacidad() - 1;
         reserva.getVuelo().setCapacidad(nuevaCapacidad);
 
