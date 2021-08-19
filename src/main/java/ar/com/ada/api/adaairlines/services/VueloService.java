@@ -106,6 +106,14 @@ public class VueloService { // lo más importante es esto, para la funcionalidad
             return false;
     }
 
+    public List<Vuelo> obtenerTodos() {
+        return repo.findAll();
+    }
+
+    public void eliminarVueloPorId(Integer id) {
+        repo.deleteById(id);
+    }
+
 }
 
 // bigdecimal, soporta montos negativos, porque se usa para economía

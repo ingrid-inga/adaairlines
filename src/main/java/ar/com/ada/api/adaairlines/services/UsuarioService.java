@@ -22,11 +22,6 @@ import ar.com.ada.api.adaairlines.sistema.comm.EmailService;
 @Service
 public class UsuarioService {
 
-  // @Autowired
-  // PasajeroService pasajeroService;
-  // @Autowired
-  // StaffService staffService;
-
   @Autowired
   StaffService staffService;
 
@@ -90,9 +85,9 @@ public class UsuarioService {
       staff.setUsuario(usuario);
 
       staffService.crearStaff(staff);
-      }
+    }
 
-      emailService.SendEmail(usuario.getEmail(), "Registracion Exitosa", "Bienvenido, ud ha sido registrado");
+    emailService.SendEmail(usuario.getEmail(), "Registracion Exitosa", "Bienvenido, ud ha sido registrado");
 
     return usuario;
   }

@@ -29,6 +29,7 @@ public class VueloController {
         this.aeropuertoService = aeropuertoService;
     }
 
+
     @PostMapping("/api/vuelos")
     public ResponseEntity<GenericResponse> postCrearVuelo(@RequestBody Vuelo vuelo) {
         GenericResponse respuesta = new GenericResponse();
@@ -40,7 +41,7 @@ public class VueloController {
 
             respuesta.isOk = true;
             respuesta.id = vuelo.getVueloId();
-            respuesta.message = "Vuelo creado correctamente";
+            respuesta.message = "Vuelo creado con éxito";
 
             return ResponseEntity.ok(respuesta);
         } else {
@@ -50,48 +51,8 @@ public class VueloController {
 
             return ResponseEntity.badRequest().body(respuesta);
         }
-
-        /*
-         * @PostMapping("/api/v2/vuelos") public ResponseEntity<GenericResponse>
-         * postCrearVueloV2(@RequestBody Vuelo vuelo) { GenericResponse respuesta = new
-         * GenericResponse();
-         * 
-         * Aeropuerto ao = aeropuertoService.b
-         * 
-         * Vuelo vueloCreado = service.crear(vuelo.getFecha(), vuelo.getCapacidad(),
-         * vuelo.getAeropuertoOrigen(), vuelo.getAeropuertoDestino(), vuelo.getPrecio(),
-         * vuelo.getCodigoMoneda());
-         * 
-         * respuesta.isOk = true; respuesta.id = vueloCreado.getVueloId();
-         * respuesta.message = "Vuelo creado correctamente";
-         * 
-         * return ResponseEntity.ok(respuesta); }
-         */
-
-        /*
-         * Versión simple
-         * 
-         * @Autowired //notacion que permite inyectar, nos evita hacer el new, es decir
-         * instanciar19:27 30 july VueloService service;
-         * 
-         * 
-         * // Version "Pro" private VueloService service;
-         * 
-         * public VueloController(VueloService service) { this.service = service; }
-         * 
-         * @PostMapping("/api/vuelos") public ResponseEntity<GenericResponse>
-         * crear(@RequestBody Vuelo vuelo) { //variable vuelo de tipo vuelo
-         * 
-         * GenericResponse respuesta = new GenericResponse();
-         * 
-         * service.crear(vuelo.getVueloId());
-         * 
-         * respuesta.isOk = true; respuesta.message = "El vuelo se creó correctamente";
-         * respuesta.id = vuelo.getVueloId();
-         * 
-         * return ResponseEntity.ok(respuesta);
-         */
     }
+
 
     @PutMapping("/api/vuelos/{id}/estados")
     public ResponseEntity<GenericResponse> putActualizarEstadoVuelo(@PathVariable Integer id,
@@ -112,11 +73,47 @@ public class VueloController {
         return ResponseEntity.ok(r);
     }
 
+
+
     @GetMapping("/api/vuelos/abiertos")
     public ResponseEntity<List<Vuelo>> getVuelosAbiertos() {
 
         return ResponseEntity.ok(service.traerVuelosAbiertos());
     }
 
-    // 30 july 20:12 debuggear
+
+    @GetMapping("/api/vuelos")
+    public ResponseEntity<List<Vuelo>> traerVuelos() {
+        return ResponseEntity.ok(service.obtenerTodos());
+    }
+
+
+    @GetMapping("api/vuelos/{id}")
+    public ResponseEntity<?> traerVueloPorId(@PathVariable Integer id) {
+        GenericResponse respuesta = new GenericResponse();
+        if (!service.validarVueloExiste(id)) {
+            respuesta.isOk = false;
+            respuesta.message = "El Id del vuelo ingresado no es válido.";
+            return ResponseEntity.badRequest().body(respuesta);
+        }
+        return ResponseEntity.ok(service.buscarPorId(id));
+    }
+
+    
+    @DeleteMapping("/api/vuelos/{id}")
+    public ResponseEntity<GenericResponse> eliminar(@PathVariable Integer id) {
+
+        GenericResponse respuesta = new GenericResponse();
+        if (service.validarVueloExiste(id)) {
+            service.eliminarVueloPorId(id);
+            respuesta.isOk = true;
+            respuesta.message = "El vuelo ha sido eliminado con éxito.";
+            return ResponseEntity.ok(respuesta);
+
+        } else {
+            respuesta.isOk = false;
+            respuesta.message = "El Id del vuelo ingresado no es válido.";
+            return ResponseEntity.badRequest().body(respuesta);
+        }
+    }
 }
