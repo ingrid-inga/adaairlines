@@ -17,6 +17,7 @@ import ar.com.ada.api.adaairlines.entities.Pais.TipoDocEnum;
 import ar.com.ada.api.adaairlines.entities.Usuario.TipoUsuarioEnum;
 import ar.com.ada.api.adaairlines.repos.UsuarioRepository;
 import ar.com.ada.api.adaairlines.security.Crypto;
+import ar.com.ada.api.adaairlines.sistema.comm.EmailService;
 
 @Service
 public class UsuarioService {
@@ -25,15 +26,18 @@ public class UsuarioService {
   // PasajeroService pasajeroService;
   // @Autowired
   // StaffService staffService;
-  
+
   @Autowired
   StaffService staffService;
-  
+
   @Autowired
   UsuarioRepository usuarioRepository;
 
   @Autowired
   PasajeroService pasajeroService;
+
+  @Autowired
+  EmailService emailService;
 
   public Usuario buscarPorUsername(String username) {
     return usuarioRepository.findByUsername(username);
@@ -52,50 +56,44 @@ public class UsuarioService {
       throw new BadCredentialsException("Usuario o contraseña invalida");
     }
 
-    return u; 
+    return u;
   }
 
   public Usuario crearUsuario(TipoUsuarioEnum tipoUsuario, String nombre, int pais, Date fechaNacimiento,
-  TipoDocEnum tipoDocumento, String documento, String email, String password) {
+      TipoDocEnum tipoDocumento, String documento, String email, String password) {
 
-Usuario usuario = new Usuario();
-usuario.setUsername(email);
-usuario.setEmail(email);
-usuario.setPassword(Crypto.encrypt(password, email.toLowerCase()));
-usuario.setTipoUsuarioId(tipoUsuario);
+    Usuario usuario = new Usuario();
+    usuario.setUsername(email);
+    usuario.setEmail(email);
+    usuario.setPassword(Crypto.encrypt(password, email.toLowerCase()));
+    usuario.setTipoUsuarioId(tipoUsuario);
 
-if (tipoUsuario == TipoUsuarioEnum.PASAJERO) {
-  Pasajero pasajero = new Pasajero();
+    if (tipoUsuario == TipoUsuarioEnum.PASAJERO) {
+      Pasajero pasajero = new Pasajero();
 
-  pasajero.setDocumento(documento);
-  pasajero.setPaisId(PaisEnum.parse(pais));
-  pasajero.setFechaNacimiento(fechaNacimiento);
-  pasajero.setNombre(nombre);
-  pasajero.setTipoDocumentoId(tipoDocumento);
-  pasajero.setUsuario(usuario);
+      pasajero.setDocumento(documento);
+      pasajero.setPaisId(PaisEnum.parse(pais));
+      pasajero.setFechaNacimiento(fechaNacimiento);
+      pasajero.setNombre(nombre);
+      pasajero.setTipoDocumentoId(tipoDocumento);
+      pasajero.setUsuario(usuario);
 
-  pasajeroService.crearPasajero(pasajero);
+      pasajeroService.crearPasajero(pasajero);
 
-} else { // en este caso, asumios que si no es pasajero es staff
-  Staff staff = new Staff();
-  staff.setDocumento(documento);
-  staff.setPaisId(PaisEnum.parse(pais));
-  staff.setFechaNacimiento(fechaNacimiento);
-  staff.setNombre(nombre);
-  staff.setTipoDocumentoId(tipoDocumento);
-  staff.setUsuario(usuario);
+    } else { // en este caso, asumios que si no es pasajero es staff
+      Staff staff = new Staff();
+      staff.setDocumento(documento);
+      staff.setPaisId(PaisEnum.parse(pais));
+      staff.setFechaNacimiento(fechaNacimiento);
+      staff.setNombre(nombre);
+      staff.setTipoDocumentoId(tipoDocumento);
+      staff.setUsuario(usuario);
 
-  staffService.crearStaff(staff);
+      staffService.crearStaff(staff);
+      }
 
+      emailService.SendEmail(usuario.getEmail(), "Registracion Exitosa", "Bienvenido, ud ha sido registrado");
 
-}
-
-
-
-
-
-
-    // Todo!
     return usuario;
   }
 
