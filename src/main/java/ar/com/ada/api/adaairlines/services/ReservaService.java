@@ -23,22 +23,17 @@ public class ReservaService {
     @Autowired
     PasajeroService pasajeroService;
 
+
     public Integer generarReserva(Integer vueloId, Integer pasajeroId) {
 
         Reserva reserva = new Reserva();
-
         Vuelo vuelo = vueloService.buscarPorId(vueloId);
-
         reserva.setFechaEmision(new Date());
-
         Calendar c = Calendar.getInstance();
         c.setTime(reserva.getFechaEmision());
         c.add(Calendar.DATE, 1);
-
         reserva.setFechaVencimiento(c.getTime());
-
         reserva.setEstadoReservaId(EstadoReservaEnum.CREADA);
-
         Pasajero pasajero = pasajeroService.buscarPorId(pasajeroId);
 
         // Relaciones bidireccionales.
@@ -48,6 +43,7 @@ public class ReservaService {
         repo.save(reserva);
         return reserva.getReservaId();
     }
+
 
 
     public Reserva buscarPorId(Integer id) {
@@ -64,9 +60,13 @@ public class ReservaService {
             return false;
     }
 
+
+
     public enum ValidacionReservaDataEnum {
         OK, ERROR_VUELO_NO_EXISTE, ERROR_VUELO_NO_ABIERTO
     }
+
+
 
     public ValidacionReservaDataEnum validar(Integer vueloId) {
         if (!vueloService.validarVueloExiste(vueloId))
@@ -79,6 +79,9 @@ public class ReservaService {
 
     }
 
+
+
+
     private boolean validarVueloAbierto(Integer id) {
         Vuelo vuelo = vueloService.buscarPorId(id);
         if (vuelo.getEstadoVueloId().equals(EstadoVueloEnum.ABIERTO)) {
@@ -86,6 +89,9 @@ public class ReservaService {
         }
         return false;
     }
+
+
+
 
     public Reserva modificarReserva(Integer id) {
         Reserva reserva = this.buscarPorId(id);
@@ -99,18 +105,25 @@ public class ReservaService {
 
         reserva.setFechaVencimiento(c.getTime());
 
-        return repo.save(reserva)
-
-        ;
+        return repo.save(reserva);
     }
+
+
 
     public void eliminarReservaPorId(Integer id) {
         repo.deleteById(id);
     }
 
 
+
     public List<Reserva> obtenerTodas() {
         return repo.findAll();
+    }
+
+
+    
+    public void actualizar(Reserva reserva) {
+        repo.save(reserva);
     }
 
 }

@@ -3,6 +3,8 @@ package ar.com.ada.api.adaairlines.entities;
 import java.util.*;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "pasaje")
@@ -20,6 +22,7 @@ public class Pasaje {
     @Column(name = "fecha_emision")
     private Date fechaEmision;
 
+    @JsonIgnore
     @Column(name = "info_pago") // 21:15 aquí es Json
     private String infoPago;
 

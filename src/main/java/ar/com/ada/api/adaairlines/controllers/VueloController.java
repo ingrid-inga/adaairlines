@@ -53,6 +53,7 @@ public class VueloController {
         }
     }
 
+    
 
     @PutMapping("/api/vuelos/{id}/estados")
     public ResponseEntity<GenericResponse> putActualizarEstadoVuelo(@PathVariable Integer id,
@@ -82,10 +83,12 @@ public class VueloController {
     }
 
 
+
     @GetMapping("/api/vuelos")
     public ResponseEntity<List<Vuelo>> traerVuelos() {
         return ResponseEntity.ok(service.obtenerTodos());
     }
+
 
 
     @GetMapping("api/vuelos/{id}")
@@ -99,7 +102,8 @@ public class VueloController {
         return ResponseEntity.ok(service.buscarPorId(id));
     }
 
-    
+
+
     @DeleteMapping("/api/vuelos/{id}")
     public ResponseEntity<GenericResponse> eliminar(@PathVariable Integer id) {
 

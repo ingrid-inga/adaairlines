@@ -26,6 +26,7 @@ public class VueloService { // lo más importante es esto, para la funcionalidad
         repo.save(vuelo);
     }
 
+
     // mon26 19:58, diferencia entre metodos crear, tienen parametros diferentes
     public Vuelo crear(Date fecha, Integer capacidad, String aeropuertoOrigenIATA, String aeropuertoDestinoIATA,
             BigDecimal precio, String codigoMoneda) { // 20:28 july26
@@ -51,6 +52,7 @@ public class VueloService { // lo más importante es esto, para la funcionalidad
         return vuelo;
     }
 
+
     public ValidacionVueloDataEnum validar(Vuelo vuelo) {
 
         if (!validarPrecio(vuelo))
@@ -61,6 +63,7 @@ public class VueloService { // lo más importante es esto, para la funcionalidad
 
         return ValidacionVueloDataEnum.OK;
     }
+
 
     public boolean validarPrecio(Vuelo vuelo) {
 
@@ -73,31 +76,36 @@ public class VueloService { // lo más importante es esto, para la funcionalidad
         return false;
     }
 
+
     public boolean validarAeropuertoOrigenDiffDestino(Vuelo vuelo) {
         /*
          * if(vuelo.getAeropuertoDestino() != vuelo.getAeropuertoOrigen()) return true;
          * else return false;
          */
         return vuelo.getAeropuertoDestino() != vuelo.getAeropuertoOrigen();
-
     }
+    
 
     public enum ValidacionVueloDataEnum {
         OK, ERROR_PRECIO, ERROR_AEROPUERTO_ORIGEN, ERROR_AEROPUERTO_DESTINO, ERROR_FECHA, ERROR_MONEDA,
         ERROR_CAPACIDAD_MINIMA, ERROR_CAPACIDAD_MAXIMA, ERROR_AEROPUERTOS_IGUALES, ERROR_GENERAL,
     }
 
+
     public Vuelo buscarPorId(Object vueloId) {
         return repo.findByVueloId(vueloId);
     }
+
 
     public List<Vuelo> traerVuelosAbiertos() {
         return repo.findByEstadoVueloId(EstadoVueloEnum.ABIERTO.getValue());
     }
 
+
     public void actualizar(Vuelo vuelo) {
         repo.save(vuelo);
     }
+
 
     public boolean validarVueloExiste(Integer id) {
         if (buscarPorId(id) != null) {
@@ -106,9 +114,11 @@ public class VueloService { // lo más importante es esto, para la funcionalidad
             return false;
     }
 
+
     public List<Vuelo> obtenerTodos() {
         return repo.findAll();
     }
+
 
     public void eliminarVueloPorId(Integer id) {
         repo.deleteById(id);

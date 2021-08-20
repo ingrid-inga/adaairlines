@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import ar.com.ada.api.adaairlines.entities.Reserva;
 import ar.com.ada.api.adaairlines.entities.Usuario;
+import ar.com.ada.api.adaairlines.models.request.EstadoReservaRequest;
 import ar.com.ada.api.adaairlines.models.request.InfoReservaNueva;
 import ar.com.ada.api.adaairlines.models.response.*;
 import ar.com.ada.api.adaairlines.services.*;
@@ -44,13 +45,16 @@ public class ReservaController {
         rta.message = "Reserva creada";
 
         return ResponseEntity.ok(rta);
-
     }
+
+
 
     @GetMapping("/api/reservas")
     public ResponseEntity<List<Reserva>> traerReservas() {
         return ResponseEntity.ok(service.obtenerTodas());
     }
+
+
 
     @GetMapping("/api/reservas/{id}")
     public ResponseEntity<?> traerReservasPorId(@PathVariable Integer id) {
@@ -61,9 +65,10 @@ public class ReservaController {
             return ResponseEntity.badRequest().body(respuesta);
         }
         return ResponseEntity.ok(service.buscarPorId(id));
-
     }
 
+
+    
     @PutMapping("api/reservas/{id}")
     public ResponseEntity<?> modificar(@PathVariable Integer id, @RequestBody InfoReservaNueva infoNueva) {
 
@@ -102,9 +107,23 @@ public class ReservaController {
             respuesta.isOk = false;
             respuesta.message = "El número de Id ingresado no es correcto.";
             return ResponseEntity.badRequest().body(respuesta);
-
         }
-
     }
 
+    @PutMapping("/api/reservas/{id}/estados")
+    public ResponseEntity<GenericResponse> putActualizarEstadoReserva(@PathVariable Integer id,
+            @RequestBody EstadoReservaRequest estadoReserva) {
+
+        GenericResponse r = new GenericResponse();
+
+        Reserva reserva = service.buscarPorId(id);
+        reserva.setEstadoReservaId(estadoReserva.estado);
+        service.actualizar(reserva);
+
+        r.isOk = true;
+        r.message = "El estado de la Reserva ha sido actualizado";
+        r.id = reserva.getReservaId();
+
+        return ResponseEntity.ok(r);
+    }
 }
