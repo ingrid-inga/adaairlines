@@ -66,12 +66,16 @@ public class AeropuertoService {
 
     }
 
-    private boolean validarAeropuertoExiste(Integer aeropuertoId) {
+    public boolean validarAeropuertoExiste(Integer aeropuertoId) {
         Aeropuerto aeropuerto = repo.findByAeropuertoId(aeropuertoId);
         if (aeropuerto != null) {
             return true;
         } else
             return false;
+    }
+
+    public void eliminarAeropuertoPorId(Integer id) {
+        repo.deleteById(id);
     }
 
 }

@@ -31,7 +31,7 @@ class AdaairlinesApplicationTests {
 		vueloConPrecioNegativo.setPrecio(new BigDecimal(-100));
 
 		// Assert: afirmar
-		// afirmar quie sea verdadero: assertFalse
+		// afirmar que sea verdadero: assertFalse
 
 		assertFalse(vueloService.validarPrecio(vueloConPrecioNegativo));
 	}
@@ -135,6 +135,10 @@ class AdaairlinesApplicationTests {
 
 	@Test
 	void vueloVerificarCapacidadMaxima() {
+		Vuelo vueloCapMax = new Vuelo();
+		vueloCapMax.setCapacidad(new Integer(100));
+
+		assertTrue(vueloService.validarCapacidadMaxima(vueloCapMax));
 
 	}
 
@@ -197,6 +201,7 @@ class AdaairlinesApplicationTests {
 
 		assertEquals(ValidacionAeropuertoDataEnum.ERROR_CODIGO_IATA, aeropuertoService.validar(aeropuerto));
 	}
+
 
 }
 
