@@ -2,6 +2,7 @@ package ar.com.ada.api.adaairlines.services;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.BooleanSupplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,7 @@ public class VueloService { // lo más importante es esto, para la funcionalidad
     // mon26 19:58, diferencia entre metodos crear, tienen parametros diferentes
     public Vuelo crear(Date fecha, Integer capacidad, String aeropuertoOrigenIATA, String aeropuertoDestinoIATA,
             BigDecimal precio, String codigoMoneda) { // 20:28 july26
+       
         Vuelo vuelo = new Vuelo();// instanciar vuelos
         vuelo.setFecha(fecha);
         vuelo.setCapacidad(capacidad);
@@ -60,6 +62,10 @@ public class VueloService { // lo más importante es esto, para la funcionalidad
 
         if (!validarAeropuertoOrigenDiffDestino(vuelo))
             return ValidacionVueloDataEnum.ERROR_AEROPUERTOS_IGUALES;
+
+        if (!validarCapacidadMaxima(vuelo))
+            return ValidacionVueloDataEnum.ERROR_CAPACIDAD_MAXIMA;
+
 
         return ValidacionVueloDataEnum.OK;
     }
@@ -122,6 +128,17 @@ public class VueloService { // lo más importante es esto, para la funcionalidad
 
     public void eliminarVueloPorId(Integer id) {
         repo.deleteById(id);
+    }
+
+
+    public boolean validarCapacidadMaxima(Vuelo vuelo) {
+        if (vuelo.getCapacidad() == null) {
+            return false;
+        }
+        if (vuelo.getCapacidad().intValue() < 101)
+            return true;
+
+        return false;
     }
 
 }
